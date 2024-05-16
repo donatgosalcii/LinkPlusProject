@@ -34,10 +34,10 @@ public class Account {
     public boolean withdraw(double amount) {
         if (balance >= amount) {
             balance -= amount;
-            return true; // Withdrawal successful
+            return true; 
         } else {
             System.out.println("Insufficient balance for withdrawal");
-            return false; // Withdrawal failed
+            return false;
         }
     }
 
