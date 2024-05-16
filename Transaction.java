@@ -6,12 +6,12 @@ public class Transaction {
     }
 
     private TransactionType type;
-    private String originatingAccountId; // ID of the originating account
-    private String resultingAccountId; // ID of the resulting account (for transfers)
+    private String originatingAccountId; 
+    private String resultingAccountId; 
     private Account sender;
     private Account receiver;
     private double amount;
-    private String reason; // Reason for the transaction
+    private String reason;
 
     public Transaction(Account sender, Account receiver, double amount, TransactionType type, String originatingAccountId, String resultingAccountId, String reason) {
         this.sender = sender;
