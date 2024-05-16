@@ -1,7 +1,7 @@
 public class Account {
     private String accountNumber;
-    private String userId; 
-    private String userName; 
+    private String userId;
+    private String userName;
     private double balance;
 
     public Account(String accountNumber, String userId, String userName, double balance) {
@@ -31,8 +31,14 @@ public class Account {
         balance += amount;
     }
 
-    public void withdraw(double amount) {
-        balance -= amount;
+    public boolean withdraw(double amount) {
+        if (balance >= amount) {
+            balance -= amount;
+            return true; // Withdrawal successful
+        } else {
+            System.out.println("Insufficient balance for withdrawal");
+            return false; // Withdrawal failed
+        }
     }
 
     @Override
