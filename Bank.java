@@ -1,33 +1,51 @@
-import java.util.ArrayList;
 import java.util.List;
+import java.util.ArrayList;
 
 public class Bank {
     private List<Account> accounts;
+    private double flatFee;
+    private double percentFee;
 
-    public Bank() {
-        accounts = new ArrayList<>();
+    public Bank(double flatFee, double percentFee) {
+        this.accounts = new ArrayList<>();
+        this.flatFee = flatFee;
+        this.percentFee = percentFee;
     }
+
+    
     public void addAccount(Account account) {
         accounts.add(account);
     }
 
-// Method to perform a transaction
-public void performTransaction(Account sender, Account receiver, double amount, Transaction.TransactionType type, String originatingAccountId, String resultingAccountId, String reason) {
-    if (type == Transaction.TransactionType.TRANSFER) {
-        if (sender.getBalance() >= amount) {
-            Transaction transaction = new Transaction(sender, receiver, amount, type, originatingAccountId, resultingAccountId, reason);
+    
+    public void performTransaction(Account sender, Account receiver, double amount) {
+        double fee = calculateFee(amount);
+        double totalAmount = amount + fee;
+
+        if (sender.getBalance() >= totalAmount) {
+            Transaction transaction = new Transaction(sender, receiver, amount, Transaction.TransactionType.TRANSFER, sender.getAccountNumber(), receiver.getAccountNumber(), "Transaction");
             transaction.execute();
-            System.out.println("Transfer Successful");
+            sender.withdraw(totalAmount);
+            System.out.println("Transaction Successful. Fee: $" + String.format("%.2f", fee));
         } else {
-            System.out.println("Insufficient balance for the transfer");
+            System.out.println("Insufficient balance for the transaction");
         }
-    } else {
-        Transaction transaction = new Transaction(sender, receiver, amount, type, originatingAccountId, null, reason);
-        transaction.execute();
     }
-}
 
+    private double calculateFee(double amount) {
+        double fee;
+        if (percentFee > 0) {
+            fee = amount * (percentFee / 100.0); 
+            if (fee < flatFee) {
+                fee = flatFee; 
+            }
+        } else {
+            fee = flatFee; 
+        }
+        return fee;
+    }
 
+    
     public void displayAccountInfo() {
         for (Account account : accounts) {
             System.out.println(account);
