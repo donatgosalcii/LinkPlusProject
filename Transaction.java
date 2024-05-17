@@ -4,7 +4,6 @@ public class Transaction {
         WITHDRAWAL,
         DEPOSIT
     }
-
     private TransactionType type;
     private String originatingAccountId; 
     private String resultingAccountId; 
@@ -22,7 +21,6 @@ public class Transaction {
         this.resultingAccountId = resultingAccountId;
         this.reason = reason;
     }
-
     public void execute() {
         switch (type) {
             case TRANSFER:
