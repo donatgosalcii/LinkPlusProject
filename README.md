@@ -23,7 +23,7 @@ This console application simulates a basic bank system allowing users to create 
 git clone https://github.com/donatgosalcii/LinkPlusProject
 
 2. **Navigate to the Project Directory:**
-cd bank-system-java
+cd LinkPlusProject
 
 3. **Compile the Java Code:**
 javac Main.java
